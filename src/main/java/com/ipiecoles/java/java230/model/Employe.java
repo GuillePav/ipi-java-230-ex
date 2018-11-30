@@ -4,9 +4,13 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
 import java.util.Objects;
+import javax.persistence.*;
 
-public abstract class Employe {
+@Entity
+public class Employe {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String nom;
@@ -14,6 +18,7 @@ public abstract class Employe {
 	private String prenom;
 
 	private String matricule;
+
 
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate dateEmbauche;
@@ -40,7 +45,7 @@ public abstract class Employe {
 		return Entreprise.NB_CONGES_BASE;
 	}
 	
-	public abstract Double getPrimeAnnuelle();
+	//public abstract Double getPrimeAnnuelle();
 
 	public void augmenterSalaire(Double pourcentage) {
 		this.salaire = this.getSalaire() * (1 + pourcentage);
