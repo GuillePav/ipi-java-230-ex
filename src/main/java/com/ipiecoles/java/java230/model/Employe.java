@@ -7,7 +7,8 @@ import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
-public class Employe {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Employe {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,8 +45,8 @@ public class Employe {
 	public Integer getNbConges() {
 		return Entreprise.NB_CONGES_BASE;
 	}
-	
-	//public abstract Double getPrimeAnnuelle();
+
+	public abstract Double getPrimeAnnuelle();
 
 	public void augmenterSalaire(Double pourcentage) {
 		this.salaire = this.getSalaire() * (1 + pourcentage);

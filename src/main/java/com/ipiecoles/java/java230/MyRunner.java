@@ -1,8 +1,10 @@
 package com.ipiecoles.java.java230;
+import com.ipiecoles.java.java230.model.Technicien;
 import org.joda.time.LocalDate;
 
 import com.ipiecoles.java.java230.model.Employe;
 import com.ipiecoles.java.java230.Repository.EmployeRepository;
+import com.ipiecoles.java.java230.Repository.TechnicienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,8 @@ public class MyRunner implements CommandLineRunner {
 
     @Autowired
     private EmployeRepository employeRepository;
+    @Autowired
+    private TechnicienRepository technicienRepository;
 
 
     @Override
@@ -56,13 +60,22 @@ public class MyRunner implements CommandLineRunner {
             System.out.println(employe1);
 
         //
-        long e2 = employeRepository.countEmployePlusRiches();
+        //long e2 = employeRepository.countEmployePlusRiches();
         //List<Employe> e = employeRepository.findEmployePlusRiches();
         //Page<Employe> p = employeRepository.findByNomIgnoreCase("bArrE",new PageRequest(0,5));
+        Page<Employe> e = employeRepository.findAll(new PageRequest(0,10));
+            for(Employe emp: e) {
+                System.out.println(employe1.getPrimeAnnuelle());
+                if(emp instanceof Technicien){
+                    ((Technicien)emp).getGrade();
+                }
+                System.out.println(emp);
+            }
 
-        System.out.println(e2);
-
-
+        List<Technicien> techniciens = technicienRepository.findByGradeBetween(2,4);
+            for (Technicien technicien : techniciens){
+                System.out.println(technicien);
+            }
     }
 
     public static void print(Object t) {
